@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * @author shuang.kou
+ * @author Chr.yl
  */
 @Service
 public class UserService {
@@ -51,6 +51,13 @@ public class UserService {
     }
 
 
+    /**
+     * JPA分页查询方法
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     public Page<User> getAllUser(int pageNum, int pageSize) {
         return userRepository.findAll(PageRequest.of(pageNum, pageSize));
     }

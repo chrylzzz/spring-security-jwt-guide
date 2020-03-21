@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 
 /**
- * @author shuang.kou
+ * @author Chr.yl
  */
 @Data
 public class LoginUser implements Serializable{

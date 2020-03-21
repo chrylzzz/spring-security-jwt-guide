@@ -1,12 +1,12 @@
 package github.javaguide.springsecurityjwtguide.security.constants;
 
 /**
- * @author shuang.kou
+ * @author Chr.yl
  */
 public class SecurityConstants {
 
     /**
-     * 登录的地址
+     * 登录的地址:自定义地址
      */
     public static final String AUTH_LOGIN_URL = "/auth/login";
 

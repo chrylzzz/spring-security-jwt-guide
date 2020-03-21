@@ -1,7 +1,7 @@
 package github.javaguide.springsecurityjwtguide.system.exception;
 
 /**
- * @author shuang.kou
+ * @author Chr.yl
  */
 public class UserNameAlreadyExistException extends RuntimeException {
     public UserNameAlreadyExistException() {

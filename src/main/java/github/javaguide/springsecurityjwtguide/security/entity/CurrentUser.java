@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
- * @author shuang.kou
+ * @author Chr.yl
  * 获取当前请求的用户
  */
 @Component

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author shuang.kou
+ * @author Chr.yl
  */
 public class JwtTokenUtils {
 
@@ -27,11 +27,12 @@ public class JwtTokenUtils {
     private static SecretKey secretKey = Keys.hmacShaKeyFor(apiKeySecretBytes);//该秘钥为随机秘钥
 
     public static String createToken(String username, List<String> roles, boolean isRememberMe) {
+        //记住为7天,否则为1小时
         long expiration = isRememberMe ? SecurityConstants.EXPIRATION_REMEMBER : SecurityConstants.EXPIRATION;
 
         String tokenPrefix = Jwts.builder()
                 .setHeaderParam("typ", SecurityConstants.TOKEN_TYPE)
-                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .signWith(secretKey, SignatureAlgorithm.HS256)//秘钥,编码方式
                 .claim(SecurityConstants.ROLE_CLAIMS, String.join(",", roles))
                 .setIssuer("SnailClimb")
                 .setIssuedAt(new Date())
@@ -61,6 +62,7 @@ public class JwtTokenUtils {
                 .collect(Collectors.toList());
     }
 
+    //解密,根据票据解密
     private static Claims getTokenBody(String token) {
         return Jwts.parser()
                 .setSigningKey(secretKey)//秘钥

@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author shuang.kou
+ * @author Chr.yl
  */
 @SpringBootApplication
 public class SpringSecurityJwtGuideApplication {

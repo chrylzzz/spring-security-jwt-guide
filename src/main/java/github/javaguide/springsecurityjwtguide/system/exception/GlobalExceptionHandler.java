@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * @author shuang.kou
+ * @author Chr.yl
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {

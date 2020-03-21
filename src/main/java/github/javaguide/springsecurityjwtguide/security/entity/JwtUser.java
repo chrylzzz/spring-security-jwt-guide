@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 /**
- * @author shuang.kou
+ * @author Chr.yl
  */
 public class JwtUser implements UserDetails {
 

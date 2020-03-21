@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 /**
  * 过滤器处理所有HTTP请求，并检查是否存在带有正确令牌的Authorization标头。例如，如果令牌未过期或签名密钥正确。
  *
- * @author shuang.kou
+ * @author Chr.yl
  */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 

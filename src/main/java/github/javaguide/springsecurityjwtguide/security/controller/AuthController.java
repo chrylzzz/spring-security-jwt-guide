@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * 注册,在db生成User和用户
  *
- * @author shuang.kou
+ * @author Chr.yl
  */
 @RestController
 @RequestMapping("/auth")

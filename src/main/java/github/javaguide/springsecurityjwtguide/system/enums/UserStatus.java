@@ -3,7 +3,7 @@ package github.javaguide.springsecurityjwtguide.system.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 /**
- * @author shuang.kou
+ * @author Chr.yl
  */
 
 public enum UserStatus {

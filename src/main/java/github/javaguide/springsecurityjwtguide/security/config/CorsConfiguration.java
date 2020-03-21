@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.Arrays;
 
 /**
- * @author shuang.kou
+ * @author Chr.yl
  * 跨域配置
  */
 @Configuration
