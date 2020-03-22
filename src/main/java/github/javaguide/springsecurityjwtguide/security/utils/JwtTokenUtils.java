@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.crypto.SecretKey;
 import javax.xml.bind.DatatypeConverter;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -36,18 +37,36 @@ public class JwtTokenUtils {
                 .claim(SecurityConstants.ROLE_CLAIMS, String.join(",", roles))
                 .setIssuer("SnailClimb")
                 .setIssuedAt(new Date())
-                .setSubject(username)
+                .setSubject(username)//subject存储username
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 .compact();
         return SecurityConstants.TOKEN_PREFIX + tokenPrefix;
     }
 
-    private boolean isTokenExpired(String token) {
+    /**
+     * token是否过期
+     *
+     * @param token
+     * @return
+     */
+    private static boolean isTokenExpired(String token) {
         Date expiredDate = getTokenBody(token).getExpiration();//过期时间
-        return expiredDate.before(new Date());//在这之前吗,true则已经过期
+        return expiredDate.before(new Date());//过期时间在现在之前吗,true则已经过期
     }
 
+    /**
+     * 根据jwtToken得到subject
+     *
+     * @param token
+     * @return
+     */
     public static String getUsernameByToken(String token) {
+        //add by Chr.yl
+        boolean isExp = isTokenExpired(token);
+        if (isExp) {
+            return null;
+        }
+        //add end
         return getTokenBody(token).getSubject();
     }
 

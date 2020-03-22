@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
+ * 校验jwt
  * 过滤器处理所有HTTP请求，并检查是否存在带有正确令牌的Authorization标头。例如，如果令牌未过期或签名密钥正确。
  *
  * @author Chr.yl
@@ -40,7 +41,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     /**
-     * 查看用户是否合法访问
+     * 查看用户访问是否合法访问
      *
      * @param request
      * @param response
@@ -56,10 +57,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String authorization = request.getHeader(SecurityConstants.TOKEN_HEADER);//得到Authorization头信息
         // 如果请求头中没有token信息则直接放行了
         if (authorization == null || !authorization.startsWith(SecurityConstants.TOKEN_PREFIX)) {//没有数据,或者头信息不为令牌开头
-            chain.doFilter(request, response);//拦截
+            chain.doFilter(request, response);//传递
             return;
         }
-        // 如果请求头中有token，则进行解析，并且设置授权信息
+        // 如果请求头中有token，则进行用户信息解析，并且设置授权信息
         SecurityContextHolder.getContext().setAuthentication(getAuthentication(authorization));
         super.doFilterInternal(request, response, chain);
     }

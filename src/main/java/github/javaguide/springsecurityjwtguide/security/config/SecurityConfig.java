@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 设置自定义的userDetailsService以及密码编码器
         auth.userDetailsService(userDetailsServiceImpl)//
-                .passwordEncoder(bCryptPasswordEncoder());//设置密码编辑器
+                .passwordEncoder(bCryptPasswordEncoder());//设置密码编辑器:user注册的密码进行加密
     }
 
     @Override
@@ -56,14 +56,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 禁用 CSRF
                 .csrf().disable()
                 .authorizeRequests()
+                //anonymous() 允许匿名用户访问,permitAll() 无条件允许访问
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 // 指定路径下的资源需要验证了的用户才能访问
                 .antMatchers("/api/**").authenticated()
+                //规定角色访问
                 .antMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
                 // 其他都放行了
                 .anyRequest().permitAll()
                 .and()
-                //添加自定义Filter
+                //添加自定义Filter,处理请求
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // 不需要session（不创建会话）

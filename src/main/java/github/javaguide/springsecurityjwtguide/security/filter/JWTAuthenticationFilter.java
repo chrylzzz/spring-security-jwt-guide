@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 登录验证
+ *
  * @author Chr.yl
  *         如果用户名和密码正确，那么过滤器将创建一个JWT Token 并在HTTP Response 的header中返回它，格式：token: "Bearer +具体token值"
  */
@@ -42,25 +44,32 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
          */
     }
 
+    /**
+     * 1.捕获用户提交的内容,通过authenticate()赋值给authentication
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-
             /**
              * com.fasterxml.jackson.databind.exc.MismatchedInputException: No content to map due to end-of-input
              at [Source: (org.apache.catalina.connector.CoyoteInputStream); line: 1, column: 0]
              */
-            // 从输入流中获取到登录的信息
+            // 从流中获取到登录的信息:捕获用户提交的内容
             LoginUser loginUser = objectMapper.readValue(request.getInputStream(), LoginUser.class);
             rememberMe.set(loginUser.getRememberMe());
             // 这部分和attemptAuthentication方法中的源码是一样的，
             // 只不过由于这个方法源码的是把用户名和密码这些参数的名字是死的，所以我们重写了一下
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
                     loginUser.getUsername(), loginUser.getPassword());
-            return authenticationManager.authenticate(authRequest);
+            return authenticationManager.authenticate(authRequest);//返回捕获的内容
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -68,7 +77,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     /**
-     * 如果验证成功，就生成token并返回
+     * 2.捕获结果处理加工,如果验证成功(登陆成功)，就生成token并返回
      */
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
@@ -77,7 +86,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication authentication) {
 
         JwtUser jwtUser = (JwtUser) authentication.getPrincipal();
-        List<String> roles = jwtUser.getAuthorities()
+        List<String> roles = jwtUser.getAuthorities()//db获得roles
                 .stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
@@ -87,6 +96,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader(SecurityConstants.TOKEN_HEADER, token);
     }
 
+    /**
+     * 3.捕获结果处理加工,验证不成功,登录失败
+     *
+     * @param request
+     * @param response
+     * @param authenticationException
+     * @throws IOException
+     */
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authenticationException.getMessage());
