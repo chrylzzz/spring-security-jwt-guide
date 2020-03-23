@@ -25,6 +25,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+//在web层的controller启用注解机制的安全确认,使用的 @PreAuthorize(“hasAuthority(‘admin’)”)才会生效
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

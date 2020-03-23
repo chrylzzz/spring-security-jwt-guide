@@ -41,6 +41,7 @@ public class SwaggerConfig {
                 .build()
                 .globalOperationParameters(pars);
     }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Spring Security JWT Guide")

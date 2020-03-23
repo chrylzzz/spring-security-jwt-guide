@@ -3,14 +3,14 @@ package github.javaguide.springsecurityjwtguide.system.controller;
 import github.javaguide.springsecurityjwtguide.security.entity.CurrentUser;
 import github.javaguide.springsecurityjwtguide.system.entity.User;
 import github.javaguide.springsecurityjwtguide.system.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author Chr.yl
@@ -43,5 +43,17 @@ public class UserController {
     public ResponseEntity<User> deleteUserById(@RequestParam("username") String username) {
         userService.deleteUserByUserName(username);
         return ResponseEntity.ok().build();
+    }
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @GetMapping("/z")
+    @PreAuthorize("hasAnyRole('ROLE_DEV','ROLE_PM')")
+    public Object z(@RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
+                    @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        Map<String, Object> map = jdbcTemplate.queryForMap("select * from user");
+        return map;
+
     }
 }

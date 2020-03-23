@@ -8,13 +8,31 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum UserStatus {
     CAN_USE("can use in system"),
-    CAN_NOT_USE("can not use in system");
+    CAN_NOT_USE("can not use in system")
 
+    //
+    ;
+
+    //    private String code;
     private String status;
 
     UserStatus(String status) {
         this.status = status;
     }
+//
+//
+//    UserStatus(String code, String status) {
+//        this.code = code;
+//        this.status = status;
+//    }
+//
+//    public String getCode() {
+//        return code;
+//    }
+//
+//    public String getStatus() {
+//        return status;
+//    }
 
     public String getName() {
         return this.status;

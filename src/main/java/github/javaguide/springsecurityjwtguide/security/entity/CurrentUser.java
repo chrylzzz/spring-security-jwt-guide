@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Chr.yl
- * 获取当前请求的用户
+ *         获取当前请求的用户
  */
 @Component
 public class CurrentUser {

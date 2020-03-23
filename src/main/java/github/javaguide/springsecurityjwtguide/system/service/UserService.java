@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.Optional;
@@ -33,12 +32,18 @@ public class UserService {
         if (optionalUser.isPresent()) {
             throw new UserNameAlreadyExistException("User name already exist!Please choose another user name.");
         }
+        //dev,pm
         User user = new User();
         user.setUsername(registerUser.get("username"));
         user.setPassword(bCryptPasswordEncoder.encode(registerUser.get("password")));
         user.setRoles("DEV,PM");
         user.setStatus(UserStatus.CAN_USE);
+        //admin
+//        User adminUser = user;
+//        adminUser.setRoles("DEV,PM,ADMIN");
+        //
         userRepository.save(user);
+//        userRepository.save(adminUser);
     }
 
     public User findUserByUserName(String name) {
