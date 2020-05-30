@@ -2,7 +2,6 @@ package github.javaguide.springsecurityjwtguide;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 
 /**
