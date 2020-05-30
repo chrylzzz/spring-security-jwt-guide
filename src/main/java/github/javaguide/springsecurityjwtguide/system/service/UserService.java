@@ -38,6 +38,7 @@ public class UserService {
         user.setPassword(bCryptPasswordEncoder.encode(registerUser.get("password")));
         user.setRoles("DEV,PM");
         user.setStatus(UserStatus.CAN_USE);
+        user.setRememberMe(registerUser.get("rememberMe"));
         //admin
 //        User adminUser = user;
 //        adminUser.setRoles("DEV,PM,ADMIN");

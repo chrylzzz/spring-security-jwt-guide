@@ -39,10 +39,9 @@ public class AuthController {
         Map<String, Object> registerUserMap = JSON.parseObject(JSON.toJSONString(userVo), Map.class);
         Set<Map.Entry<String, Object>> entrySet = registerUserMap.entrySet();
         Iterator<Map.Entry<String, Object>> iterator = entrySet.iterator();
-        Map<String, String> registerUser = null;
+        Map<String, String> registerUser = new HashMap<>();
         while (iterator.hasNext()) {
             Map.Entry<String, Object> next = iterator.next();
-            registerUser = new HashMap<>();
 
             registerUser.put(next.getKey(), next.getValue().toString());
         }
