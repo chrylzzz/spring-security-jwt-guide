@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 
 import java.net.UnknownHostException;
 
 /**
- * Created By Chr on 2019/7/13.
+ * 暂不使用
+ * Created By Chr on 2018/7/13.
  */
 @Configuration
 public class RedisConfig {
