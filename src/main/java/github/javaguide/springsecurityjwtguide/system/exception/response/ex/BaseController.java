@@ -24,7 +24,8 @@ public class BaseController {
 
     //定义ExceptionHandler解决未被Controller层吸收的Exception
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.OK)
+//    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)//建议使用 返回码为 500
     @ResponseBody
     public Object handlerException(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException {
         Map<String, Object> responseData = new HashMap<>();
